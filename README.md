@@ -44,7 +44,8 @@
 41    }),  
 ..    // ...  
 
-- 第38行到第40行定义了接受赌注的功能。    
+- 第38行到第40行定义了接受赌注的功能。  
+    
 最后，在计算结束后，我们将会再次获取余额并展示一条总结结果的信息。  
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)  
