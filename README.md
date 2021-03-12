@@ -1,6 +1,6 @@
 ## 2.4.bet-and-wager
-尽管为博一笑跟朋友玩玩石头、剪刀、布很有趣，但在代码中跟敌人和你所赖以生存的东西玩会更加更有意思。让我们来改变我们的程序，以便Alice可以跟Bob下注，无论谁赢了都会带走那口锅。  
-这一次，让我们以JavaScript[前端](https://docs.reach.sh/ref-model.html#%28tech._frontend%29)开始然后我们将会返回到Reach的代码并把新的方法连接起来。  
+尽管为博一笑跟朋友玩石头、剪刀、布很有趣，但在代码中跟敌人和你所赖以生存的东西玩会更加更有意思。让我们来修改我们的程序，以便Alice可以跟Bob下注，无论谁赢了都会带走那口锅。  
+这一次，让我们从JavaScript[前端](https://docs.reach.sh/ref-model.html#%28tech._frontend%29)开始，然后我们将会返回到Reach的代码中，并把新的方法连接起来。  
 既然我们将要转移资金，因此我们将在游戏开始之前记录每个参与者的余额，以便我们更清楚地显示他们最终赢得了什么。我们将在帐户创建与合同部署之间添加此代码。
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)      
@@ -193,4 +193,34 @@ Alice went from 10 to 14.9999.
 
 Bob went from 10 to 4.9999.  
 
-为何Alice和Bob的余额每次都变回10呢？这是因为每次我们运行“./reach run”时，它开始了一个测试网络的全新实例并为每个玩家注册账号。
+Alice和Bob的余额怎么会每次都变回10呢？这是因为每次我们运行“./reach run”时，它开始了一个测试网络的全新实例并为每个玩家注册账号。   
+
+余额怎么会不是刚好为10，15和5呢？这是因为以太坊的交易消耗燃气费来运行。  
+
+如果我们已经展示了所有的小数点，他们会看起来像这样：  
+—  
+
+Alice went from 10 to 14.999999999999687163.  
+
+Bob went from 10 to 4.999999999999978229.  
+
+...  
+ 
+Alice went from 10 to 4.999999999999687163.  
+
+Bob went from 10 to 14.999999999999978246.  
+
+—  
+为什么当Alice获胜时，赢得的钱会略微少于Bob呢？她不得不付钱来[部署](https://docs.reach.sh/ref-model.html#%28tech._deploy%29)这张合约，因为她在前端 有关[部署的指南部分](https://docs.reach.sh/guide-deploymode.html）讨论了如何避免这种差值。  
+
+Alice做的还不错，如果她持续赌下去，她将在“石头剪刀布”中赚上一笔  
+
+如果你的版本不能工作，请查看完整版本的[ tut-3/index.rsh](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.rsh)和[ tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs)，以确保你正确地复制了所有东西。  
+
+既然有一个理由玩这个游戏，那结果证明存在一个重大的安全隐患。我们将会在[下一步](https://docs.reach.sh/tut-4.html)修复它；确保你不要用这个版本发布，不然Alice就要破产了！  
+
+检查你的理解：Reach程序如何管理代币？  
+1.他们不管理，你需要与Reach程序显式地共同管理代币；  
+2.[pay](https://docs.reach.sh/ref-programs-step.html#%28reach._%28%28pay%29%29%29)的原始语句可以被添加到[publish](https://docs.reach.sh/ref-programs-step.html#%28reach._%28%28publish%29%29%29)原始语句中来发送资金给Reach程序，这样到时候就可以用[transfer](https://docs.reach.sh/ref-programs-consensus.html#%28reach._%28%28transfer%29%29%29)原始语句来把资金发送回参与者和其他地址。  
+答案：  
+2；[pay](https://docs.reach.sh/ref-programs-step.html#%28reach._%28%28pay%29%29%29)和[transfer](https://docs.reach.sh/ref-programs-consensus.html#%28reach._%28%28transfer%29%29%29)原始语句帮你处理这一切。
