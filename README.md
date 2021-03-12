@@ -86,7 +86,7 @@
 
 第6到第8行定义了Alice的界面为玩家界面，再加上一个叫做下注的整数值   
 第9到11行对Bob做了同样的工作，他有一个叫做接受赌注的方法来查看下注值  
-第16行将这些接口和相应的参与者相关联。这行代码的格式是[参与者构造函数](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._constructor%29)的[原组](https://docs.reach.sh/ref-programs-compute.html#%28tech._tuple%29),其中第一个参数是一个名称为[后端参与者]的字符串,而第二个参数是[参与者交互接口](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._interact._interface%29)，习惯上用类似的名字来命名它们  
+第16行将这些接口和相应的参与者相关联。这行代码的格式是[参与者构造函数](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._constructor%29)的[原组](https://docs.reach.sh/ref-programs-compute.html#%28tech._tuple%29),其中第一个参数是一个名称为[后端](https://docs.reach.sh/ref-model.html#%28tech._backend%29)[参与者](https://docs.reach.sh/ref-model.html#%28tech._participant%29)的字符串,而第二个参数是[参与者交互接口](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._interact._interface%29)，习惯上用类似的名字来命名它们  
 
 该应用程序的三个部分中的每一个都必须进行更新以处理赌注。让我们先看看Alice的第一步.  
 
