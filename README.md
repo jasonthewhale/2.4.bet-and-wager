@@ -16,10 +16,10 @@
 13    const beforeBob = await getBalance(accBob);  
 ..    // ...
 
--第10行展示了显示货币金额（最多4个小数位）的功能。  
--第11行展示了用于获得参与者的余额并将其显示（最多4个小数位）的功能。  
--第12和13行在游戏开始前为Alice和Bob获得余额。    
--接下来我们会更新Alice的用户界面来加入她的赌注。     
+- 第10行展示了显示货币金额（最多4个小数位）的功能。  
+- 第11行展示了用于获得参与者的余额并将其显示（最多4个小数位）的功能。  
+- 第12和13行在游戏开始前为Alice和Bob获得余额。    
+接下来我们会更新Alice的用户界面来加入她的赌注。     
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)  
 ..    // ...  
@@ -29,8 +29,8 @@
 35    }),  
 ..    // ...  
 
-第33行将正常的Player界面拼接到Alice的界面中。      
-第34行将她的赌注定义为网络中的5个[网络代币](https://docs.reach.sh/ref-model.html#%28tech._network._token%29)，这是在[参与者交互界面](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._interact._interface%29)中使用具体值而不是函数的示例。   
+- 第33行将正常的Player界面拼接到Alice的界面中。      
+- 第34行将她的赌注定义为网络中的5个[网络代币](https://docs.reach.sh/ref-model.html#%28tech._network._token%29)，这是在[参与者交互界面](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._interact._interface%29)中使用具体值而不是函数的示例。   
 
 对于Bob,我们将会改变他的界面以显示赌注，并通过返回值立即接受赌注。    
 
@@ -44,7 +44,7 @@
 41    }),  
 ..    // ...  
 
-第38行到第40行定义了接受赌注的功能。    
+- 第38行到第40行定义了接受赌注的功能。    
 最后，在计算结束后，我们将会再次获取余额并展示一条总结结果的信息。  
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)  
@@ -56,8 +56,8 @@
 48    console.log(`Bob went from ${beforeBob} to ${afterBob}.`);  
 ..    // ...    
 
-第44和第45行在结束后获得余额。    
-第47和第48行打印出结果。     
+- 第44和第45行在结束后获得余额。    
+- 第47和第48行打印出结果。     
 
 对前端的这些更改仅处理展示和接口的问题，下注和转移资金的实际操作逻辑将在Reach的代码中进行。    
 让我们来看看那些代码。   
@@ -84,9 +84,9 @@
 ..          // ...  
 42          [exit](https://docs.reach.sh/ref-programs-step.html#%28reach._%28%28exit%29%29%29)(); });  
 
-第6到第8行定义了Alice的界面为玩家界面，再加上一个叫做下注的整数值。     
-第9到11行对Bob做了同样的工作，他有一个叫做接受赌注的方法来查看下注值。    
-第16行将这些接口和相应的参与者相关联。这行代码的格式是[参与者构造函数](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._constructor%29)的[元组](https://docs.reach.sh/ref-programs-compute.html#%28tech._tuple%29),其中第一个参数是一个名称为[后端](https://docs.reach.sh/ref-model.html#%28tech._backend%29)[参与者](https://docs.reach.sh/ref-model.html#%28tech._participant%29)的字符串,而第二个参数是[参与者交互接口](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._interact._interface%29)，习惯上用类似的名字来命名它们  
+- 第6到第8行定义了Alice的界面为玩家界面，再加上一个叫做下注的整数值。     
+- 第9到11行对Bob做了同样的工作，他有一个叫做接受赌注的方法来查看下注值。    
+- 第16行将这些接口和相应的参与者相关联。这行代码的格式是[参与者构造函数](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._constructor%29)的[元组](https://docs.reach.sh/ref-programs-compute.html#%28tech._tuple%29),其中第一个参数是一个名称为[后端](https://docs.reach.sh/ref-model.html#%28tech._backend%29)[参与者](https://docs.reach.sh/ref-model.html#%28tech._participant%29)的字符串,而第二个参数是[参与者交互接口](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._interact._interface%29)，习惯上用类似的名字来命名它们  
 
 该应用程序的三个部分中的每一个都必须进行更新以处理赌注。让我们先看看Alice的第一步。    
 
@@ -100,9 +100,9 @@
 23    [commit](https://docs.reach.sh/ref-programs-consensus.html#%28reach._%28%28commit%29%29%29)();  
 ..    // ...  
 
-第19行让Alice将赌注[解密](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28declassify%29%29%29)来进行传输  
-第21行更新以便Alice与Bob分享赌注的金额    
-第22行让她转移该金额作为她[广播](https://docs.reach.sh/ref-model.html#%28tech._publication%29)的一部分。如果下注未出现在21行，而出现在22行,则Reach编译器将引发异常.修改程序并尝试这个。这是因为[共识网络](https://docs.reach.sh/ref-model.html#%28tech._consensus._network%29)需要能够验证Alice[广播](https://docs.reach.sh/ref-model.html#%28tech._publication%29)中包含的[网络代币](https://docs.reach.sh/ref-model.html#%28tech._network._token%29)的数量，是否与[共识网络](https://docs.reach.sh/ref-model.html#%28tech._consensus._network%29)可获得的某些计算相匹配。   
+- 第19行让Alice将赌注[解密](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28declassify%29%29%29)来进行传输  
+- 第21行更新以便Alice与Bob分享赌注的金额    
+- 第22行让她转移该金额作为她[广播](https://docs.reach.sh/ref-model.html#%28tech._publication%29)的一部分。如果下注未出现在21行，而出现在22行,则Reach编译器将引发异常.修改程序并尝试这个。这是因为[共识网络](https://docs.reach.sh/ref-model.html#%28tech._consensus._network%29)需要能够验证Alice[广播](https://docs.reach.sh/ref-model.html#%28tech._publication%29)中包含的[网络代币](https://docs.reach.sh/ref-model.html#%28tech._network._token%29)的数量，是否与[共识网络](https://docs.reach.sh/ref-model.html#%28tech._consensus._network%29)可获得的某些计算相匹配。   
 
 接下来，Bob需要被展示赌注并给予接受赌注或转移资产的机会。    
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)   
@@ -114,8 +114,8 @@
 29      .[pay](https://docs.reach.sh/ref-programs-step.html#%28reach._%28%28pay%29%29%29)(wager);  
 ..    // ...  
 
-第26行使Bob接受赌注。如果他不喜欢这些条款，那么他的前端可以不回复这个方法并且[DApp](https://docs.reach.sh/ref-model.html#%28tech._dapp%29)将会停止。    
-第29行也让Bob进行下注。    
+- 第26行使Bob接受赌注。如果他不喜欢这些条款，那么他的前端可以不回复这个方法并且[DApp](https://docs.reach.sh/ref-model.html#%28tech._dapp%29)将会停止。    
+- 第29行同样让Bob进行下注。    
 
 [DApp](https://docs.reach.sh/ref-model.html#%28tech._dapp%29)正在[共识步骤](https://docs.reach.sh/ref-model.html#%28tech._consensus._step%29)中运行，并且合约本身现在拥有下注金额的两倍。之前，它将计算结果，然后提交状态。但是现在，它需要查看结果并使用它来平衡帐户。  
 
@@ -131,9 +131,9 @@
 38    [commit](https://docs.reach.sh/ref-programs-consensus.html#%28reach._%28%28commit%29%29%29)();  
 ..    // ...
 
-第33行到第35行通过确定每一方获得下注金额的数量，来根据结果计算给每个参与者的金额。如果结果为2，则Alice获胜，那么她将获得两份金额；如果为0，则Bob获胜，那么他将获得两份金额；否则，他们每个人都会得到一份金额。    
-第36和37行用来转移相应的金额。这个转账是从合约到参与者的转移，而不是从参与者到彼此的转移，因为所有资金都位于合约内部。  
-第38行提交应用程序的状态并允许参与者查看结果并执行。  
+- 第33行到第35行通过确定每一方获得下注金额的数量，来根据结果计算给每个参与者的金额。如果结果为2，则Alice获胜，那么她将获得两份金额；如果为0，则Bob获胜，那么他将获得两份金额；否则，他们每个人都会得到一份金额。    
+- 第36和37行用来转移相应的金额。这个转账是从合约到参与者的转移，而不是从参与者到彼此的转移，因为所有资金都位于合约内部。  
+- 第38行提交应用程序的状态并允许参与者查看结果并执行。  
 
 现在，我们可以运行这个程序，并通过运行来查看它的输出。  
 
