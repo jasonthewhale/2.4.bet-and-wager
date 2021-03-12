@@ -56,10 +56,10 @@
 48    console.log(`Bob went from ${beforeBob} to ${afterBob}.`);  
 ..    // ...    
 
-第44和第45行在结束后获得余额
-第47和第48行打印出结果
+第44和第45行在结束后获得余额   
+第47和第48行打印出结果  
 
-对前端的这些更改仅处理展示和接口的问题。下注和转移资金的实际操作逻辑将在Reach的代码中进行  
+对前端的这些更改仅处理展示和接口的问题，下注和转移资金的实际操作逻辑将在Reach的代码中进行  
 让我们来看看那些代码  
 首先，我们需要更新参与者交互界面  
 
@@ -84,3 +84,113 @@
 ..          // ...  
 42          [exit](https://docs.reach.sh/ref-programs-step.html#%28reach._%28%28exit%29%29%29)(); });  
 
+第6到第8行定义了Alice的界面为玩家界面，再加上一个叫做下注的整数值   
+第9到11行对Bob做了同样的工作，他有一个叫做接受赌注的方法来查看下注值  
+第16行将这些接口和相应的参与者相关联。这行代码的格式是[参与者构造函数](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._constructor%29)的[原组](https://docs.reach.sh/ref-programs-compute.html#%28tech._tuple%29),其中第一个参数是一个名称为[后端参与者]的字符串,而第二个参数是[参与者交互接口](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._interact._interface%29)，习惯上用类似的名字来命名它们  
+
+该应用程序的三个部分中的每一个都必须进行更新以处理赌注。让我们先看看Alice的第一步.  
+
+[tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)   
+..    // ...  
+18    A.[only](https://docs.reach.sh/ref-programs-step.html#%28reach._%28%28only%29%29%29)(() [=>](https://docs.reach.sh/ref-programs-compute.html#%28reach._%28%28~3d._~3e%29%29%29) {  
+19      [const](https://docs.reach.sh/ref-programs-compute.html#%28reach._%28%28const%29%29%29) wager = [declassify](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28declassify%29%29%29)([interact](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28interact%29%29%29).wager);  
+20      [const](https://docs.reach.sh/ref-programs-compute.html#%28reach._%28%28const%29%29%29) handA = [declassify](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28declassify%29%29%29)([interact](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28interact%29%29%29).getHand()); });  
+21    A.[publish](https://docs.reach.sh/ref-programs-step.html#%28reach._%28%28publish%29%29%29)(wager, handA)  
+22      .[pay](https://docs.reach.sh/tut-3.html)(wager);  
+23    [commit](https://docs.reach.sh/ref-programs-consensus.html#%28reach._%28%28commit%29%29%29)();  
+..    // ...  
+
+第19行让Alice将赌注[解密](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28declassify%29%29%29)来进行传输  
+第21行更新以便Alice与Bob分享赌注的金额    
+第22行让她转移该金额作为她[广播](https://docs.reach.sh/ref-model.html#%28tech._publication%29)的一部分。如果下注未出现在21行，而出现在22行,则Reach编译器将引发异常.修改程序并尝试这个。这是因为[共识网络](https://docs.reach.sh/ref-model.html#%28tech._consensus._network%29)需要能够验证Alice[广播](https://docs.reach.sh/ref-model.html#%28tech._publication%29)中包含的[网络代币](https://docs.reach.sh/ref-model.html#%28tech._network._token%29)的数量是否与[共识网络](https://docs.reach.sh/ref-model.html#%28tech._consensus._network%29)可获得的某些计算相匹配。   
+
+接下来，Bob需要被展示赌注并给予接受赌注或转移资产的机会  
+[tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)   
+..    // ...  
+25    B.[only](https://docs.reach.sh/ref-programs-step.html#%28reach._%28%28only%29%29%29)(() => {  
+26      [interact](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28interact%29%29%29).acceptWager(wager);  
+27      [const](https://docs.reach.sh/ref-programs-compute.html#%28reach._%28%28const%29%29%29) handB = [declassify](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28declassify%29%29%29)([interact](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28interact%29%29%29).getHand()); });  
+28    B.[publish](https://docs.reach.sh/ref-programs-step.html#%28reach._%28%28publish%29%29%29)(handB)  
+29      .[pay](https://docs.reach.sh/ref-programs-step.html#%28reach._%28%28pay%29%29%29)(wager);  
+..    // ...  
+
+第26行使Bob接受赌注。如果他不喜欢这些条款，那么他的前端可以不回复这个方法并且[DApp](https://docs.reach.sh/ref-model.html#%28tech._dapp%29)将会停止  
+第29行也让Bob进行下注  
+
+[DApp](https://docs.reach.sh/ref-model.html#%28tech._dapp%29)正在[共识步骤](https://docs.reach.sh/ref-model.html#%28tech._consensus._step%29)中运行，并且合约本身现在拥有下注金额的两倍。之前，它将计算结果，然后提交状态。但是现在，它需要查看结果并使用它来平衡帐户。  
+
+[tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)   
+..    // ...
+31    [const](https://docs.reach.sh/ref-programs-compute.html#%28reach._%28%28const%29%29%29) outcome = (handA [+](https://docs.reach.sh/ref-programs-compute.html#%28reach._%28%28%2B%29%29%29) (4 - handB)) [%](https://docs.reach.sh/ref-programs-compute.html#%28reach._%28%28~25%29%29%29) 3;  
+32    [const](https://docs.reach.sh/ref-programs-compute.html#%28reach._%28%28const%29%29%29) outcome = (handA + (4 - handB) [forA, forB] =  
+33          outcome [==](https://docs.reach.sh/ref-programs-compute.html#%28reach._%28%28~3d~3d%29%29%29) 2 [?](https://docs.reach.sh/ref-programs-compute.html#%28reach._%28%28~3f%29%29%29) [2, 0] :  
+34          outcome [==](https://docs.reach.sh/ref-programs-compute.html#%28reach._%28%28~3d~3d%29%29%29) 0 [?](https://docs.reach.sh/ref-programs-compute.html#%28reach._%28%28~3f%29%29%29) [0, 2] :  
+35          [1, 1];  
+36    [transfer](https://docs.reach.sh/ref-programs-consensus.html#%28reach._%28%28transfer%29%29%29)(forA [*](https://docs.reach.sh/ref-programs-compute.html#%28reach._%28%28%2A%29%29%29) wager).to(A);  
+37    [transfer](https://docs.reach.sh/ref-programs-consensus.html#%28reach._%28%28transfer%29%29%29)(forA [*](https://docs.reach.sh/ref-programs-compute.html#%28reach._%28%28%2A%29%29%29) wager)(forB * wager).to(B);   
+38    [commit](https://docs.reach.sh/ref-programs-consensus.html#%28reach._%28%28commit%29%29%29)();  
+..    // ...
+
+第33行到第35行通过确定每一方获得下注金额的数量，来根据结果计算给每个参与者的金额。如果结果为2，则Alice获胜，那么她将获得两份金额；如果为0，则Bob获胜，那么他将获得两份金额；否则，他们每个人都会得到一份金额。  
+第36和37行用来转移相应的金额。这个转账是从合约到参与者的转移，而不是从参与者到彼此的转移，因为所有资金都位于合约内部。  
+第38行提交应用程序的状态并允许参与者查看结果并执行。  
+
+现在，我们可以运行这个程序，并通过运行来查看它的输出  
+
+ $ ./reach run  
+
+Since the players act randomly, the results will be different every time. When I ran the program three times, this is the output I got:  
+
+$ ./reach run  
+
+Alice played Paper  
+
+Bob accepts the wager of 5.  
+
+Bob played Rock  
+
+Alice saw outcome Alice wins  
+
+Bob saw outcome Alice wins  
+
+Alice went from 10 to 14.9999.  
+
+Bob went from 10 to 4.9999.  
+
+ 
+
+$ ./reach run  
+
+Alice played Paper  
+
+Bob accepts the wager of 5.  
+
+Bob played Scissors  
+
+Alice saw outcome Bob wins  
+
+Bob saw outcome Bob wins  
+
+Alice went from 10 to 4.9999.  
+
+Bob went from 10 to 14.9999.  
+
+ 
+
+$ ./reach run   
+
+Alice played Rock  
+
+Bob accepts the wager of 5.  
+
+Bob played Scissors  
+
+Alice saw outcome Alice wins  
+
+Bob saw outcome Alice wins  
+
+Alice went from 10 to 14.9999.  
+
+Bob went from 10 to 4.9999.  
+
+为何Alice和Bob的余额每次都变回10呢？这是因为每次我们运行“./reach run”时，它开始了一个测试网络的全新实例并为每个玩家注册账号。
