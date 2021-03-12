@@ -3,7 +3,7 @@
 这一次，让我们从JavaScript[前端](https://docs.reach.sh/ref-model.html#%28tech._frontend%29)开始，然后我们将会返回到Reach的代码中，并把新的方法连接起来。  
 既然我们将要转移资金，因此我们将在游戏开始之前记录每个参与者的余额，以便我们更清楚地显示他们最终赢得了什么。我们将在帐户创建与合同部署之间添加此代码。
 
-[tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)      
+| [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13) |        
 ..    // ...  
  5    const [stdlib](https://docs.reach.sh/ref-backend-js.html#%28javascript._%28%28stdlib%29%29%29) = await loadStdlib(); 
  6    const startingBalance = [stdlib](https://docs.reach.sh/ref-backend-js.html#%28javascript._%28%28stdlib%29%29%29).[parseCurrency](https://docs.reach.sh/ref-backend-js.html#%28javascript._%28%28parse.Currency%29%29%29)(10);  
@@ -102,7 +102,7 @@
 
 第19行让Alice将赌注[解密](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28declassify%29%29%29)来进行传输  
 第21行更新以便Alice与Bob分享赌注的金额    
-第22行让她转移该金额作为她[广播](https://docs.reach.sh/ref-model.html#%28tech._publication%29)的一部分。如果下注未出现在21行，而出现在22行,则Reach编译器将引发异常.修改程序并尝试这个。这是因为[共识网络](https://docs.reach.sh/ref-model.html#%28tech._consensus._network%29)需要能够验证Alice[广播](https://docs.reach.sh/ref-model.html#%28tech._publication%29)中包含的[网络代币](https://docs.reach.sh/ref-model.html#%28tech._network._token%29)的数量是否与[共识网络](https://docs.reach.sh/ref-model.html#%28tech._consensus._network%29)可获得的某些计算相匹配。   
+第22行让她转移该金额作为她[广播](https://docs.reach.sh/ref-model.html#%28tech._publication%29)的一部分。如果下注未出现在21行，而出现在22行,则Reach编译器将引发异常.修改程序并尝试这个。这是因为[共识网络](https://docs.reach.sh/ref-model.html#%28tech._consensus._network%29)需要能够验证Alice[广播](https://docs.reach.sh/ref-model.html#%28tech._publication%29)中包含的[网络代币](https://docs.reach.sh/ref-model.html#%28tech._network._token%29)的数量，是否与[共识网络](https://docs.reach.sh/ref-model.html#%28tech._consensus._network%29)可获得的某些计算相匹配。   
 
 接下来，Bob需要被展示赌注并给予接受赌注或转移资产的机会  
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)   
