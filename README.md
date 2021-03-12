@@ -16,10 +16,10 @@
 13    const beforeBob = await getBalance(accBob);  
 ..    // ...
 
-第10行展示了显示货币金额（最多4个小数位）的功能。  
-第11行展示了用于获得参与者的余额并将其显示（最多4个小数位）的功能。  
-第12和13行在游戏开始前为Alice和Bob获得余额。    
-接下来我们会更新Alice的用户界面来加入她的赌注。     
+-第10行展示了显示货币金额（最多4个小数位）的功能。  
+-第11行展示了用于获得参与者的余额并将其显示（最多4个小数位）的功能。  
+-第12和13行在游戏开始前为Alice和Bob获得余额。    
+-接下来我们会更新Alice的用户界面来加入她的赌注。     
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)  
 ..    // ...  
