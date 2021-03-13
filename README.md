@@ -123,7 +123,7 @@
 
 - 第19行让Alice将赌注[解密](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28declassify%29%29%29)来进行传输。  
 - 第21行更新以便Alice与Bob分享赌注的金额。    
-- 第22行让她转移该金额作为她[广播](https://docs.reach.sh/ref-model.html#%28tech._publication%29)的一部分。如果下注未出现在21行，而出现在22行,则Reach编译器将引发异常.修改程序并尝试这个。这是因为[共识网络](https://docs.reach.sh/ref-model.html#%28tech._consensus._network%29)需要能够验证Alice[广播](https://docs.reach.sh/ref-model.html#%28tech._publication%29)中包含的[网络代币](https://docs.reach.sh/ref-model.html#%28tech._network._token%29)的数量，是否与[共识网络](https://docs.reach.sh/ref-model.html#%28tech._consensus._network%29)可获得的某些计算相匹配。   
+- 第22行让她转移该金额作为她[广播](https://docs.reach.sh/ref-model.html#%28tech._publication%29)的一部分。如果下注未出现在21行，而出现在22行,则Reach编译器将引发异常。修改程序并尝试这个。这是因为[共识网络](https://docs.reach.sh/ref-model.html#%28tech._consensus._network%29)需要能够验证Alice[广播](https://docs.reach.sh/ref-model.html#%28tech._publication%29)中包含的[网络代币](https://docs.reach.sh/ref-model.html#%28tech._network._token%29)的数量，是否与[共识网络](https://docs.reach.sh/ref-model.html#%28tech._consensus._network%29)可获得的某些计算相匹配。   
 
 接下来，Bob需要被展示赌注并给予接受赌注或转移资产的机会。    
 
