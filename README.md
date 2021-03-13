@@ -1,9 +1,11 @@
 ## 2.4.赌博与下注
+
 尽管为博一笑跟朋友玩“石头剪刀布”很有趣，但在代码中跟敌人和你一生的积蓄玩会更加更有意思。让我们来修改我们的程序，以便Alice可以跟Bob下注，赢家将会拿走奖金。
 这一次，让我们从JavaScript[前端](https://docs.reach.sh/ref-model.html#%28tech._frontend%29)开始，然后我们将会返回到Reach的代码中，并把新的方法连接起来。  
 既然我们将要转移资金，因此我们将在游戏开始之前记录每个参与者的余额，以便我们更清楚地显示他们最终赢得了什么。我们将在帐户创建与合同部署之间添加此代码。  
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)  
+
 ```  
 ..    // ...
  5    const stdlib = await loadStdlib();  
@@ -16,15 +18,16 @@
 12    const beforeAlice = await getBalance(accAlice);  
 13    const beforeBob = await getBalance(accBob);  
 ..    // ...
-``` 
+```
 
 - 第10行展示了显示货币金额（最多4个小数位）的功能。  
 - 第11行展示了用于获得参与者的余额并将其显示（最多4个小数位）的功能。  
 - 第12和13行在游戏开始前为Alice和Bob获得余额。 
-   
+
 接下来我们会更新Alice的用户界面来加入她的赌注。     
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)  
+
 ``` 
 ..    // ...  
 32    backend.Alice(ctcAlice, {  
@@ -33,13 +36,14 @@
 35    }),  
 ..    // ...  
 ```
- 
+
 - 第33行将正常的玩家界面拼接到Alice的界面中。      
 - 第34行将她的赌注定义为网络中的5个[网络代币](https://docs.reach.sh/ref-model.html#%28tech._network._token%29)，这是在[参与者交互界面](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._interact._interface%29)中使用具体值而不是函数的示例。   
 
 对于Bob,我们将会改变他的界面以显示赌注，并通过返回值立即接受赌注。    
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)   
+
 ```   
 ..    // ...
 36    backend.Bob(ctcBob, {
@@ -49,13 +53,14 @@
 40      },
 41    }),
 ..    // ...
-```  
+```
 
 - 第38行到第40行定义了接受赌注的功能。  
-    
+
 最后，在计算结束后，我们将会再次获取余额并展示一条总结结果的信息。  
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)  
+
 ```  
 ..    // ...  
 44    const afterAlice = await getBalance(accAlice);  
@@ -74,6 +79,7 @@
 首先，我们需要更新参与者交互界面。   
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)   
+
 ```  
  1    'reach 0.1';  
  2    
@@ -94,15 +100,16 @@
 17        (A, B) => {  
 ..          // ...  
 42          exit(); });    
-```  
+```
 
 - 第6到第8行定义了Alice的界面为玩家界面，再加上一个叫做下注的整数值。     
 - 第9到11行对Bob做了同样的工作，他有一个叫做接受赌注的方法来查看下注值。    
-- 第16行将这些接口和相应的参与者相关联。这行代码的格式是[参与者构造函数](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._constructor%29)的[元组](https://docs.reach.sh/ref-programs-compute.html#%28tech._tuple%29),其中第一个参数是一个名称为[后端](https://docs.reach.sh/ref-model.html#%28tech._backend%29)[参与者](https://docs.reach.sh/ref-model.html#%28tech._participant%29)的字符串,而第二个参数是[参与者交互接口](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._interact._interface%29)，习惯上用类似的名字来命名它们。  
+- 第16行将这些接口和相应的参与者相关联。这行代码的格式是[参与者构造函数](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._constructor%29)的[元组](https://docs.reach.sh/ref-programs-compute.html#%28tech._tuple%29)，其中第一个参数是一个名称为[后端](https://docs.reach.sh/ref-model.html#%28tech._backend%29)[参与者](https://docs.reach.sh/ref-model.html#%28tech._participant%29)的字符串，而第二个参数是[参与者交互接口](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._interact._interface%29)，习惯上用类似的名字来命名它们。  
 
 该应用程序的三个部分中的每一个都必须进行更新以处理赌注。让我们先看看Alice的第一步。    
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)   
+
 ```  
 ..    // ...  
 18    A.only(() => {   
@@ -121,6 +128,7 @@
 接下来，Bob需要被展示赌注并给予接受赌注或转移资产的机会。    
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)   
+
 ```   
 ..    // ...    
 25    B.only(() => {   
@@ -137,6 +145,7 @@
 [DApp](https://docs.reach.sh/ref-model.html#%28tech._dapp%29)正在[共识步骤](https://docs.reach.sh/ref-model.html#%28tech._consensus._step%29)中运行，并且合约本身现在拥有下注金额的两倍。之前，它将计算结果，然后提交状态。但是现在，它需要查看结果并使用它来平衡帐户。  
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)   
+
 ```  
 ..    // ...  
 31    const outcome = (handA + (4 - handB)) % 3;  
@@ -215,22 +224,22 @@ Bob went from 10 to 4.9999.
 > Alice和Bob的余额怎么会每次都变回10呢？这是因为每次我们运行“./reach run”时，它开始了一个测试网络的全新实例并为每个玩家注册账号。   
 
 >余额怎么会不是刚好为10，15和5呢？这是因为以太坊的交易消耗燃气费来运行。  
-> 如果我们已经展示了所有的小数点，他们会看起来像这样：  
-> —  
+>如果我们已经展示了所有的小数点，他们会看起来像这样：  
+>—  
 >
-> Alice went from 10 to 14.999999999999687163.  
+>Alice went from 10 to 14.999999999999687163.  
 >
-> Bob went from 10 to 4.999999999999978229.  
+>Bob went from 10 to 4.999999999999978229.  
 >
-> ...  
+>...  
 >
-> Alice went from 10 to 4.999999999999687163.  
+>Alice went from 10 to 4.999999999999687163.  
 >
-> Bob went from 10 to 14.999999999999978246.  
+>Bob went from 10 to 14.999999999999978246.  
 >
-> —  
+>—  
 >
-> 为什么当Alice获胜时，赢得的钱会略微少于Bob呢？她不得不付钱来[部署](https://docs.reach.sh/ref-model.html#%28tech._deploy%29)这张合约，因为她在前端 有关[部署的指南部分](https://docs.reach.sh/guide-deploymode.html)讨论了如何避免这种差值。  
+>为什么当Alice获胜时，赢得的钱会略微少于Bob呢？她不得不付钱来[部署](https://docs.reach.sh/ref-model.html#%28tech._deploy%29)这张合约，因为她在前端 有关[部署的指南部分](https://docs.reach.sh/guide-deploymode.html)讨论了如何避免这种差值。  
 
 Alice做的还不错，如果她持续赌下去，她将在“石头剪刀布”中赚上一笔!      
 
@@ -241,5 +250,5 @@ Alice做的还不错，如果她持续赌下去，她将在“石头剪刀布”
 >检查你的理解：Reach程序如何管理代币？  
 >1.他们不管理，你需要与Reach程序显式地共同管理代币；  
 >2.[pay](https://docs.reach.sh/ref-programs-step.html#%28reach._%28%28pay%29%29%29)的原始语句可以被添加到[publish](https://docs.reach.sh/ref-programs-step.html#%28reach._%28%28publish%29%29%29)原始语句中来发送资金给Reach程序，这样到时候就可以用[transfer](https://docs.reach.sh/ref-programs-consensus.html#%28reach._%28%28transfer%29%29%29)原始语句来把资金发送回参与者和其他地址。  
-答案：  
-2；[pay](https://docs.reach.sh/ref-programs-step.html#%28reach._%28%28pay%29%29%29)和[transfer](https://docs.reach.sh/ref-programs-consensus.html#%28reach._%28%28transfer%29%29%29)原始语句帮你处理这一切。
+>答案：  
+>2；[pay](https://docs.reach.sh/ref-programs-step.html#%28reach._%28%28pay%29%29%29)和[transfer](https://docs.reach.sh/ref-programs-consensus.html#%28reach._%28%28transfer%29%29%29)原始语句帮你处理这一切。
