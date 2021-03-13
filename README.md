@@ -230,7 +230,7 @@ Bob went from 10 to 4.9999.
 >
 > —  
 >
-> 为什么当Alice获胜时，赢得的钱会略微少于Bob呢？她不得不付钱来[部署](https://docs.reach.sh/ref-model.html#%28tech._deploy%29)这张合约，因为她在前端 有关[部署的指南部分](https://docs.reach.sh/guide-deploymode.html）讨论了如何避免这种差值。  
+> 为什么当Alice获胜时，赢得的钱会略微少于Bob呢？她不得不付钱来[部署](https://docs.reach.sh/ref-model.html#%28tech._deploy%29)这张合约，因为她在前端 有关[部署的指南部分](https://docs.reach.sh/guide-deploymode.html)讨论了如何避免这种差值。  
 
 Alice做的还不错，如果她持续赌下去，她将在“石头剪刀布”中赚上一笔   
 
