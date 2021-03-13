@@ -98,7 +98,7 @@
 
 - 第6到第8行定义了Alice的界面为玩家界面，再加上一个叫做下注的整数值。     
 - 第9到11行对Bob做了同样的工作，他有一个叫做接受赌注的方法来查看下注值。    
-- 第16行将这些接口和相应的参与者相关联。这行代码的格式是[参与者构造函数](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._constructor%29)的[元组](https://docs.reach.sh/ref-programs-compute.html#%28tech._tuple%29),其中第一个参数是一个名称为[后端](https://docs.reach.sh/ref-model.html#%28tech._backend%29)[参与者](https://docs.reach.sh/ref-model.html#%28tech._participant%29)的字符串,而第二个参数是[参与者交互接口](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._interact._interface%29)，习惯上用类似的名字来命名它们  
+- 第16行将这些接口和相应的参与者相关联。这行代码的格式是[参与者构造函数](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._constructor%29)的[元组](https://docs.reach.sh/ref-programs-compute.html#%28tech._tuple%29),其中第一个参数是一个名称为[后端](https://docs.reach.sh/ref-model.html#%28tech._backend%29)[参与者](https://docs.reach.sh/ref-model.html#%28tech._participant%29)的字符串,而第二个参数是[参与者交互接口](https://docs.reach.sh/ref-programs-module.html#%28tech._participant._interact._interface%29)，习惯上用类似的名字来命名它们。  
 
 该应用程序的三个部分中的每一个都必须进行更新以处理赌注。让我们先看看Alice的第一步。    
 
@@ -114,8 +114,8 @@
 ..    // ... 
 ```
 
-- 第19行让Alice将赌注[解密](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28declassify%29%29%29)来进行传输  
-- 第21行更新以便Alice与Bob分享赌注的金额    
+- 第19行让Alice将赌注[解密](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28declassify%29%29%29)来进行传输。  
+- 第21行更新以便Alice与Bob分享赌注的金额。    
 - 第22行让她转移该金额作为她[广播](https://docs.reach.sh/ref-model.html#%28tech._publication%29)的一部分。如果下注未出现在21行，而出现在22行,则Reach编译器将引发异常.修改程序并尝试这个。这是因为[共识网络](https://docs.reach.sh/ref-model.html#%28tech._consensus._network%29)需要能够验证Alice[广播](https://docs.reach.sh/ref-model.html#%28tech._publication%29)中包含的[网络代币](https://docs.reach.sh/ref-model.html#%28tech._network._token%29)的数量，是否与[共识网络](https://docs.reach.sh/ref-model.html#%28tech._consensus._network%29)可获得的某些计算相匹配。   
 
 接下来，Bob需要被展示赌注并给予接受赌注或转移资产的机会。    
