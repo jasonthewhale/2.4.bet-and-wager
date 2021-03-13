@@ -6,7 +6,7 @@
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)  
 
-```  
+```js 
 ..    // ...
  5    const stdlib = await loadStdlib();  
  6    const startingBalance = stdlib.parseCurrency(10);  
