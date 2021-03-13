@@ -28,7 +28,7 @@
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)  
 
-``` 
+```js
 ..    // ...  
 32    backend.Alice(ctcAlice, {  
 33      ...Player('Alice'),  
@@ -44,7 +44,7 @@
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)   
 
-```   
+```js   
 ..    // ...
 36    backend.Bob(ctcBob, {
 37      ...Player('Bob'),
@@ -61,7 +61,7 @@
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)  
 
-```  
+```js 
 ..    // ...  
 44    const afterAlice = await getBalance(accAlice);  
 45    const afterBob = await getBalance(accBob);  
@@ -80,7 +80,7 @@
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)   
 
-```  
+```js  
  1    'reach 0.1';  
  2    
  3    const Player =  
@@ -110,7 +110,7 @@
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)   
 
-```  
+```js  
 ..    // ...  
 18    A.only(() => {   
 19      const wager = declassify(interact.wager);  
@@ -129,7 +129,7 @@
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)   
 
-```   
+```js   
 ..    // ...    
 25    B.only(() => {   
 26      interact.acceptWager(wager);   
@@ -146,7 +146,7 @@
 
 [tut-3/index.mjs](https://github.com/reach-sh/reach-lang/blob/master/examples/tut-3/index.mjs#L5-L13)   
 
-```  
+```js  
 ..    // ...  
 31    const outcome = (handA + (4 - handB)) % 3;  
 32    const [forA, forB] =  
